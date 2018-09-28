@@ -1,0 +1,16 @@
+{
+   "quotes" : [
+      {"id" : 1, "value" : "APIs - Digital glue or revenue stream? (Tim Fisher)"},
+      {"id" : 2, "value" : "APIs are the unsung heroes of the application economy (Ian Clark)"},
+      {"id" : 3, "value" : "You cant spell 'CAPITALISM' whithou 'API'"},
+      {"id" : 4, "value" : "KEEP CALM and let the API handle it"},
+      {"id" : 5, "value" : "GET /me/some {API} now()"},
+      {"id" : 6, "value" : "API > GUI"},
+      {"id" : 7, "value" : "I <3 APIs"},
+      {"id" : 8, "value" : "In API we trust (Kin Lane)"},
+      {"id" : 9, "value" : "Don't PPT, GSD (@apiglue)"},
+      {"id" : 10, "value" : "API first, America second (A.Luedtke)"},
+      {"id" : 11, "value" : "Today's REST-afarian forecast: HIGH"}
+
+   ]
+}
