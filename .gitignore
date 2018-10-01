@@ -12,3 +12,4 @@
 *.out
 #CUSTOM
 .env
+vendor
