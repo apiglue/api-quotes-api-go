@@ -1,0 +1,55 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: "Api quote api"
+  description: An api that will return an inspiring api quote randomly
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Marcelo
+    email: letschat@marcelo.tech
+    url: http://twitter.com/apiglue
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: apiquote-api.herokuapp.com
+basePath: /v1/quotes
+schemes:
+  - https
+  
+security:
+  - APIKeyHeader: []  
+  
+paths:
+  /random:
+    get:
+      description: Return a random api quote
+      operationId: random
+      responses:
+        '200':
+          description: Quote response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Quote'
+        '404':
+          description: No quotes were found (possible empty db)
+        '500':
+          description: Server error
+
+    
+
+          
+    
+definitions:
+  Quote:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: quote id
+        example: 42
+      quote:
+        type: string
+        description: quote itself
+        example: 'KEEP CALM and let the API handle it'
