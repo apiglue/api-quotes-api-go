@@ -1,13 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/apiglue/api-quotes-api-go/pkg/dataloader"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/mediocregopher/radix.v2/redis"
 )
@@ -36,28 +35,31 @@ func main() {
 		return
 	}
 
-	router := mux.NewRouter()
-	router.HandleFunc("/random", GetRandomQuote).Methods("GET")
+	router := gin.Default()
+	v1 := router.Group("/")
+	{
+		v1.GET("/random", getRandomQuote)
+	}
+	router.Run()
 
-	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 
 //GetRandomQuote - GET A RANDOM QUOTE
-func GetRandomQuote(w http.ResponseWriter, r *http.Request) {
+func getRandomQuote(c *gin.Context) {
 
 	conn, err := redis.Dial("tcp", os.Getenv("REDIS_SERVER"))
 	if err != nil {
-		return
+		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 
 	conn.Cmd("SADD", redisMember)
 
 	quote, err := conn.Cmd("SRANDMEMBER", redisMember).Str()
 	if err != nil {
-		// handle err
+		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	json.NewEncoder(w).Encode(quote)
+	c.JSON(http.StatusOK, quote)
 
 	defer conn.Close()
 
