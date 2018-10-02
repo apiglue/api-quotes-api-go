@@ -36,6 +36,8 @@ func main() {
 	}
 	router.Run()
 
+	log.Print("Server started on port: " + port)
+
 }
 
 //GetRandomQuote - GET A RANDOM QUOTE

@@ -39,8 +39,3 @@
 [prune]
   go-tests = true
   unused-packages = true
-
-[metadata.heroku]
-  root-package = "github.com/apiglue/api-quotes-api-go"
-  go-version = "1.11"
-  install = ["./main.go"]
