@@ -31,6 +31,17 @@
   version = "v1.2.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:f322d5d66aaa117b93e47a4007100902306984edd4f056e14587b34e78a9ec1d"
+  name = "github.com/gomodule/redigo"
+  packages = [
+    "internal",
+    "redis",
+  ]
+  pruneopts = "UT"
+  revision = "2cd21d9966bf7ff9ae091419744f0b3fb0fecace"
+
+[[projects]]
   digest = "1:ecd9aa82687cf31d1585d4ac61d0ba180e42e8a6182b85bd785fcca8dfeefc1b"
   name = "github.com/joho/godotenv"
   packages = ["."]
@@ -53,14 +64,6 @@
   pruneopts = "UT"
   revision = "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c"
   version = "v0.0.4"
-
-[[projects]]
-  branch = "master"
-  digest = "1:fe65c935da420778d1166abbbb4c79592a1dc254385c9f99b2cca5a0fb8c6f8d"
-  name = "github.com/mediocregopher/radix.v2"
-  packages = ["redis"]
-  pruneopts = "UT"
-  revision = "94360be262532d465b7e4760c7a67195d3319a87"
 
 [[projects]]
   digest = "1:33422d238f147d247752996a26574ac48dcf472976eda7f5134015f06bf16563"
@@ -115,8 +118,8 @@
   analyzer-version = 1
   input-imports = [
     "github.com/gin-gonic/gin",
+    "github.com/gomodule/redigo/redis",
     "github.com/joho/godotenv",
-    "github.com/mediocregopher/radix.v2/redis",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

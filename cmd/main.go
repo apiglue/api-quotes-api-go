@@ -7,8 +7,8 @@ import (
 
 	"github.com/apiglue/api-quotes-api-go/pkg/dataloader"
 	"github.com/gin-gonic/gin"
+	"github.com/gomodule/redigo/redis"
 	"github.com/joho/godotenv"
-	"github.com/mediocregopher/radix.v2/redis"
 )
 
 const (
@@ -35,7 +35,7 @@ func main() {
 		return
 	}
 
-	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.Default()
 	v1 := router.Group("/")
@@ -49,14 +49,13 @@ func main() {
 //GetRandomQuote - GET A RANDOM QUOTE
 func getRandomQuote(c *gin.Context) {
 
-	conn, err := redis.Dial("tcp", os.Getenv("REDIS_SERVER"))
+	conn, err := redis.DialURL(os.Getenv("REDIS_URL"))
 	if err != nil {
+		// Handle error
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 
-	conn.Cmd("SADD", redisMember)
-
-	quote, err := conn.Cmd("SRANDMEMBER", redisMember).Str()
+	quote, err := redis.String(conn.Do("SRANDMEMBER", redisMember))
 	if err != nil {
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
