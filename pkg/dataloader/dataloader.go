@@ -7,12 +7,12 @@ import (
 	"log"
 	"os"
 
+	"github.com/gomodule/redigo/redis"
 	"github.com/joho/godotenv"
-	"github.com/mediocregopher/radix.v2/redis"
 )
 
 const (
-	redisMember = "quotes"
+	redisMemberName = "quotes"
 )
 
 // Quotes struct which contains
@@ -55,16 +55,29 @@ func Loadquotes() error {
 }
 
 func purgeData() error {
-	conn, err := redis.Dial("tcp", os.Getenv("REDIS_SERVER"))
+
+	conn, err := redis.DialURL(os.Getenv("REDIS_URL"))
 	if err != nil {
+		// Handle error
 		return err
 	}
 
-	conn.Cmd("DEL quotes")
+	conn.Do("DEL", redisMemberName)
 
 	log.Print("Data purged")
 
 	defer conn.Close()
+
+	// conn, err := redis.Dial("tcp", os.Getenv("REDIS_SERVER"))
+	// if err != nil {
+	// 	return err
+	// }
+
+	// conn.Cmd("DEL quotes")
+
+	// log.Print("Data purged")
+
+	// defer conn.Close()
 
 	return nil
 }
@@ -87,13 +100,20 @@ func loadData() error {
 
 	json.Unmarshal(byteValue, &quotes)
 
-	conn, err := redis.Dial("tcp", os.Getenv("REDIS_SERVER"))
+	// conn, err := redis.Dial("tcp", os.Getenv("REDIS_SERVER"))
+	// if err != nil {
+	// 	return err
+	// }
+
+	conn, err := redis.DialURL(os.Getenv("REDIS_URL"))
 	if err != nil {
+		// Handle error
 		return err
 	}
 
 	for i := 0; i < len(quotes.Quotes); i++ {
-		conn.Cmd("SADD", redisMember, quotes.Quotes[i].Value)
+		//conn.Cmd("SADD", redisMember, quotes.Quotes[i].Value)
+		conn.Do("SADD", redisMemberName, quotes.Quotes[i].Value)
 	}
 
 	log.Print("Data loaded")
