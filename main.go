@@ -8,7 +8,6 @@ import (
 	"github.com/apiglue/api-quotes-api-go/pkg/dataloader"
 	"github.com/gin-gonic/gin"
 	"github.com/gomodule/redigo/redis"
-	"github.com/joho/godotenv"
 )
 
 const (
@@ -17,19 +16,12 @@ const (
 
 func main() {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-		//return
-	}
-
 	port := os.Getenv("PORT")
-
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
 
-	err = dataloader.Loadquotes()
+	err := dataloader.Loadquotes()
 	if err != nil {
 		//log.Fatal("Dataloader thrown an error: %s", err)
 		return
@@ -49,7 +41,12 @@ func main() {
 //GetRandomQuote - GET A RANDOM QUOTE
 func getRandomQuote(c *gin.Context) {
 
-	conn, err := redis.DialURL(os.Getenv("REDIS_URL"))
+	redisURL := os.Getenv("REDIS_URL")
+	if redisURL == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	conn, err := redis.DialURL(redisURL)
 	if err != nil {
 		// Handle error
 		c.AbortWithStatus(http.StatusInternalServerError)

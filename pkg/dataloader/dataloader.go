@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/gomodule/redigo/redis"
-	"github.com/joho/godotenv"
 )
 
 const (
@@ -31,13 +30,7 @@ type Quote struct {
 //Loadquotes - Loads data into redis
 func Loadquotes() error {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-		//return err
-	}
-
-	err = purgeData()
+	err := purgeData()
 	if err != nil {
 		fmt.Printf("Error purging redis: %s", err)
 		log.Fatal(err)
