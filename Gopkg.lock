@@ -42,14 +42,6 @@
   revision = "2cd21d9966bf7ff9ae091419744f0b3fb0fecace"
 
 [[projects]]
-  digest = "1:ecd9aa82687cf31d1585d4ac61d0ba180e42e8a6182b85bd785fcca8dfeefc1b"
-  name = "github.com/joho/godotenv"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "23d116af351c84513e1946b527c88823e476be13"
-  version = "v1.3.0"
-
-[[projects]]
   digest = "1:3e551bbb3a7c0ab2a2bf4660e7fcad16db089fdcfbb44b0199e62838038623ea"
   name = "github.com/json-iterator/go"
   packages = ["."]
@@ -119,7 +111,6 @@
   input-imports = [
     "github.com/gin-gonic/gin",
     "github.com/gomodule/redigo/redis",
-    "github.com/joho/godotenv",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
