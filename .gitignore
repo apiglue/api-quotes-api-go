@@ -13,3 +13,5 @@
 #CUSTOM
 .env
 vendor
+LICENSE
+main
