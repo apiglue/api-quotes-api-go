@@ -8,7 +8,6 @@ import (
 	"github.com/apiglue/api-quotes-api-go/pkg/dataloader"
 	"github.com/gin-gonic/gin"
 	"github.com/gomodule/redigo/redis"
-	"github.com/joho/godotenv"
 )
 
 const (
@@ -17,11 +16,12 @@ const (
 
 func main() {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-		return
-	}
+	// err := godotenv.Load()
+
+	// // if err != nil {
+	// // 	log.Fatal("Error loading .env file")
+	// // 	return
+	// // }
 
 	port := os.Getenv("PORT")
 
@@ -29,7 +29,7 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	err = dataloader.Loadquotes()
+	err := dataloader.Loadquotes()
 	if err != nil {
 		//log.Fatal("Dataloader thrown an error: %s", err)
 		return
