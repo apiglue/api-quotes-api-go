@@ -1,1 +1,1 @@
-web: api-quotes-api-go
+web: ./bin/main
