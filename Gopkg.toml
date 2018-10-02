@@ -40,4 +40,3 @@
 [metadata.heroku]
   root-package = "github.com/apiglue/api-quotes-api-go"
   go-version = "1.11"
-  install = ["./cmd/main.go"]
